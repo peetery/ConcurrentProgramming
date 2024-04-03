@@ -5,15 +5,16 @@ namespace Data
 {
     public class Table
     {
-        private int _Width;
-        private int _Height;
+        public int Width { get; set; }
+        public int Height { get; set; }
+
         private ObservableCollection<Ball> _Balls;
 
-        public Table()
+        public Table(int width, int height)
         {
             _Balls = new ObservableCollection<Ball>();
-            _Width = 500;
-            _Height = 500;
+            Width = width;
+            Height = height;
         }
     }
 }

@@ -1,21 +1,22 @@
 using System;
+using System.Numerics;
 
 namespace Data
 {
     public class Ball
     {
-        public int Radius;
-        public double X;
-        public double Y;
+        public int Radius { get; set; }
+        public Vector2 Position { get; set; }
+        public Vector2 Velocity { get; set; }
 
         private int _Speed;
         private bool _isAlive;
 
-        public Ball(int radius, double x, double y)
+        public Ball(int radius, Vector2 position, Vector2 velocity)
         {
             this.Radius = radius;
-            this.X = x;
-            this.Y = y;
+            this.Position = position;
+            this.Velocity = velocity;
             this._Speed = 100;
             this._isAlive = true;
         }
