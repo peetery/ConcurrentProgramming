@@ -1,4 +1,4 @@
-namespace DataTest
+namespace ViewModelTest
 {
     public class Tests
     {

@@ -1,4 +1,4 @@
-namespace DataTest
+namespace ModelTest
 {
     public class Tests
     {
