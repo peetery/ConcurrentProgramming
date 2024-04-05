@@ -11,8 +11,8 @@ namespace Logic
         private CancellationToken _cancellationToken;
         private List<Task> _tasks = new List<Task>();
 
-        public Table table { get; }
-        public ObservableCollection<BallLogic> balls { get; }
+        public override Table table { get; }
+        public override ObservableCollection<BallLogic> balls { get; }
 
         public LogicAPI()
         {
@@ -21,7 +21,7 @@ namespace Logic
            BallLogic.SetTable(table);
         }
 
-        public void RunSimulation()
+        public override void RunSimulation()
         {
             _cancellationToken = CancellationToken.None;
 
@@ -47,7 +47,7 @@ namespace Logic
             }
         }
 
-        public void StopSimulation()
+        public override void StopSimulation()
         {
             _cancellationToken = new CancellationToken(true);
 
@@ -60,7 +60,7 @@ namespace Logic
             balls.Clear();
         }
         
-        public BallLogic createBall(int radius, Vector2 position)
+        public override BallLogic createBall(int radius, Vector2 position)
         {
             Vector2 basicVelocity = new Vector2((float)0.005, (float)0.005);
             Ball ball = _dataAPI.getBallData(radius, position, basicVelocity);
@@ -68,7 +68,7 @@ namespace Logic
             return ballLogic;
         }
 
-        public void createBalls(int amount, int radius)
+        public override void createBalls(int amount, int radius)
         {
             Random random = new Random();
             for (int i = 0; i < amount; i++)
@@ -79,7 +79,7 @@ namespace Logic
             }
         }
 
-        public void deleteBalls()
+        public override void deleteBalls()
         {
             balls.Clear();
         }

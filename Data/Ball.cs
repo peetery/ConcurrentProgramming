@@ -8,7 +8,7 @@ namespace Data
         public int Radius { get; set; }
         public Vector2 Position { get; set; }
         public Vector2 Velocity { get; set; }
-        public int Speed { get; set; } = 100;
+        public int Speed { get; set; } = 1;
 
         private bool _isAlive;
 
@@ -17,7 +17,6 @@ namespace Data
             this.Radius = radius;
             this.Position = position;
             this.Velocity = velocity;
-            this._Speed = 100;
             this._isAlive = true;
         }
     }
