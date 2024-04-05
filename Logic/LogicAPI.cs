@@ -5,7 +5,7 @@ using System.Numerics;
 
 namespace Logic
 {
-    public class LogicAPI
+    public class LogicAPI : LogicAbstractAPI
     {
         private readonly DataAPI _dataAPI;
         private CancellationToken _cancellationToken;
