@@ -8,7 +8,7 @@ namespace ViewModel
     {
         private ModelAbstractAPI _model;
         public event PropertyChangedEventHandler PropertyChanged;
-        private void RaisePropertyChanged([CallerMemberName] string propertyName = null)
+        protected void RaisePropertyChanged([CallerMemberName] string propertyName = null)
         {
             if (PropertyChanged != null)
             {

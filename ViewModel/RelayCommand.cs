@@ -9,10 +9,10 @@ namespace ViewModel
 {
     public class RelayCommand : ICommand
     {
-        private readonly Action<object> _execute;
-        private readonly Func<object, bool> _canExecute;
+        private readonly Action _execute;
+        private readonly Func<bool> _canExecute;
 
-        public event EventHandler? CanExecuteChanged;
+        public event EventHandler CanExecuteChanged;
 
         public void RaiseCanExecuteChanged()
         {
@@ -22,7 +22,7 @@ namespace ViewModel
             }
         }
 
-        public RelayCommand(Action<object> execute, Func<object, bool> canExecute)
+        public RelayCommand(Action execute, Func<bool> canExecute)
         {
             _execute = execute;
             _canExecute = canExecute;
@@ -30,12 +30,20 @@ namespace ViewModel
 
         public bool CanExecute(object parameter)
         {
-            return _canExecute(parameter);
+            if (this._canExecute == null)
+            {
+                return true;
+            }
+            else if (parameter == null)
+            {
+                return this._canExecute();
+            }
+            return this._canExecute();
         }
 
         public void Execute(object parameter)
         {
-            _execute(parameter);
+            this._execute();
         }
     }
 }
