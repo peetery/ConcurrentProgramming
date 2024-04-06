@@ -56,16 +56,13 @@ namespace Logic
 
         public void setPosition()
         {
-            Vector2 newPosition = _ball.Position + _ball.Velocity * _ball.Speed;
-            if (newPosition.X < 0 || newPosition.X > _table.Width - 25)
-            {
+            _ball.Position += new Vector2(_ball.Velocity.X * _ball.Speed, _ball.Velocity.Y * _ball.Speed);
+            if (_ball.Position.X < 0 || _ball.Position.X > _table.Width - 25)
                 _ball.Velocity *= -Vector2.UnitX;
-            }
-            if (newPosition.Y < 0 || newPosition.Y > _table.Height - 25)
-            {
+
+            if (_ball.Position.Y < 0 || _ball.Position.Y > _table.Height - 25)
                 _ball.Velocity *= -Vector2.UnitY;
-            }
-            _ball.Position = newPosition;
+
             RaisePropertyChanged(nameof(X));
             RaisePropertyChanged(nameof(Y));
         }

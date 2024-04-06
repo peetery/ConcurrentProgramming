@@ -25,6 +25,8 @@ namespace ViewModel
 
         public MainWindowViewModel(ModelAbstractAPI modelLayer)
         {
+            ClickButton = new RelayCommand(() => CreateHandler());
+            ExitButton = new RelayCommand(() => ExitHandler());
             _modelLayer = modelLayer;
             _width = _modelLayer.Width;
             _height = _modelLayer.Height;
@@ -63,7 +65,7 @@ namespace ViewModel
 
         private void CreateHandler()
         {
-            ballsGroup = _modelLayer.createBalls(_ballsAmount, 10);
+            ballsGroup = _modelLayer.createBalls(_ballsAmount, 25);
             _modelLayer.StartSimulation();
         }
 

@@ -4,11 +4,54 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewmodel="clr-namespace:ViewModel;assembly=ViewModel" 
-        d:DataContext="{d:DesignInstance Type=viewmodel:MainWindowViewModel}"
         mc:Ignorable="d"
-        Title="Etap 1" Height="500" Width="800">
+        Title="Etap 1" Height="560" Width="520">
+
+    <Window.DataContext>
+        <viewmodel:MainWindowViewModel/>
+    </Window.DataContext>
 
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition   Height="*" />
+            <RowDefinition Height="20" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="1" Margin="0,0,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="1"   Content="Start" Command="{Binding ClickButton}" Background="Green"  />
+            <TextBox Grid.Column="0"    Text="{Binding ballsAmount}" x:Name="inputNumber"  />
+            <Button Grid.Column="2"   Content="Stop" Command="{Binding ExitButton}" Background="Red" />
+
+        </Grid>
+        <Rectangle
+            Grid.Row="0" x:Name="Rectangle"
+        Stroke="Black" 
+        StrokeThickness="4"
+            Height="500"
+        Width="500"/>
+        <ItemsControl Grid.Row="0" ItemsSource="{Binding ballsGroup,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" >
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Canvas/>
+                </ItemsPanelTemplate>
+
+
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemContainerStyle>
+                <Style TargetType="ContentPresenter">
+                    <Setter Property="Canvas.Left" Value="{Binding X}" />
+                    <Setter Property="Canvas.Top" Value="{Binding Y}" />
+                </Style>
+            </ItemsControl.ItemContainerStyle>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Ellipse Width="25" Height="25" Fill="Red"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
     </Grid>
 </Window>

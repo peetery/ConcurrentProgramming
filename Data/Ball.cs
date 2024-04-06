@@ -8,7 +8,7 @@ namespace Data
         public int Radius { get; set; }
         public Vector2 Position { get; set; }
         public Vector2 Velocity { get; set; }
-        public int Speed { get; set; } = 1;
+        public int Speed { get; set; } = 100;
 
         private bool _isAlive;
 

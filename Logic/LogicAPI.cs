@@ -12,12 +12,12 @@ namespace Logic
         private List<Task> _tasks = new List<Task>();
 
         public override Table table { get; }
-        public override ObservableCollection<BallLogic> balls { get; }
+        public override ObservableCollection<BallLogic> balls { get; } = new ObservableCollection<BallLogic>();
 
         public LogicAPI()
         {
-           balls = new ObservableCollection<BallLogic>();
            _dataAPI = DataAPI.createDataAPI();
+            table = _dataAPI.getTableData(500, 500);
            BallLogic.SetTable(table);
         }
 
@@ -31,7 +31,7 @@ namespace Logic
                 {
                     while (true)
                     {
-                        Thread.Sleep(10);
+                        Thread.Sleep(5);
                         try
                         {
                             _cancellationToken.ThrowIfCancellationRequested();

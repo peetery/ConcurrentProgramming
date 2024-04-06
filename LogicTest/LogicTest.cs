@@ -40,7 +40,7 @@ namespace LogicTest
             _ballLogic.Velocity = new Vector2(0, -1);
             _ballLogic.setPosition();
             Assert.AreEqual(50, _ballLogic.X);
-            Assert.AreEqual(49, _ballLogic.Y);
+            Assert.AreEqual(-50, _ballLogic.Y);
         }
     }
 }

@@ -22,7 +22,9 @@ namespace ViewModel
             }
         }
 
-        public RelayCommand(Action execute, Func<bool> canExecute)
+        public RelayCommand (Action execute) : this(execute, null) { }
+
+        public RelayCommand (Action execute, Func<bool> canExecute)
         {
             _execute = execute;
             _canExecute = canExecute;

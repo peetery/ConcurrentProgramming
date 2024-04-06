@@ -7,6 +7,8 @@ namespace Model
     {
         private readonly LogicAbstractAPI _logicLayer;
 
+        public ModelAPI() : this(LogicAbstractAPI.CreateAPI()) { }
+
         public ModelAPI(LogicAbstractAPI logicLayer)
         {
             _logicLayer = logicLayer ?? LogicAbstractAPI.CreateAPI();
