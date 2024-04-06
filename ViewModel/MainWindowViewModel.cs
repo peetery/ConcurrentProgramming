@@ -1,5 +1,5 @@
 ﻿using Logic;
-using Model;
+using Model;    
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -50,6 +50,7 @@ namespace ViewModel
                 _ballsAmount = value;
                 RaisePropertyChanged("ballsAmount");
             }
+        }
 
         public int viewHeight
         {
