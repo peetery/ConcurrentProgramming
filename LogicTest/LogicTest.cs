@@ -1,46 +1,77 @@
-using Data;
 using Logic;
+using Data;
+using System.Collections.ObjectModel;
 using System.Numerics;
 
 namespace LogicTest
 {
-    public class Tests
+    [TestFixture]
+    public class BallLogicTests
     {
-        private BallLogic _ballLogic;
-        private Table _table;
+        private LogicAbstractAPI _logicAPI;
 
         [SetUp]
-        public void Setup()
+        public void Initialize()
         {
-            Ball ball = new Ball(10, new Vector2(50, 50), new Vector2(1, 1));
-            _ballLogic = new BallLogic(ball);
-            _table = new Table(100, 100);
+            _logicAPI = LogicAbstractAPI.CreateAPI();
         }
 
         [Test]
-        public void ConstructorTest()
+        public void logicAPIConstructorTest()
         {
-            Assert.AreEqual(50, _ballLogic.X);
-            Assert.AreEqual(50, _ballLogic.Y);
-            Assert.AreEqual(10, _ballLogic.Radius);
-            Assert.AreEqual(new Vector2(1, 1), _ballLogic.Velocity);
+            int width = 500;
+            int height = 500;
+            Assert.AreEqual(_logicAPI.balls.Count, 0);
+            Assert.AreEqual(width, _logicAPI.table.Width);
+            Assert.AreEqual(height, _logicAPI.table.Height);
         }
 
         [Test]
-        public void setVelocityTest()
+        public void ballConstructorTest()
         {
-            _ballLogic.Velocity = new Vector2(2, 2);
-            Assert.AreEqual(new Vector2(2, 2), _ballLogic.Velocity);
+            Vector2 testPosition = new Vector2(2, 4);
+            Vector2 testVelocity = new Vector2(3, 6);
+            int radius = 10;
+            Ball ball = new Ball(radius, testPosition, testVelocity);
+            Assert.AreEqual(radius, ball.Radius);
+            Assert.AreEqual(testPosition, ball.Position);
+            Assert.AreEqual(testVelocity, ball.Velocity);
+        }
+
+        [Test]
+        public void changeVelocityTest()
+        {
+            Vector2 testPosition = new Vector2(2, 4);
+            Vector2 testVelocity = new Vector2(3, 6);
+            int radius = 10;
+            Ball ball = new Ball(radius, testPosition, testVelocity);
+            ball.Velocity = new Vector2(6, 12);
+            Assert.AreEqual(6, ball.Velocity.X);
+            Assert.AreEqual(12, ball.Velocity.Y);
         }
 
         [Test]
         public void setPositionTest()
         {
-            BallLogic.SetTable(_table);
-            _ballLogic.Velocity = new Vector2(0, -1);
-            _ballLogic.setPosition();
-            Assert.AreEqual(50, _ballLogic.X);
-            Assert.AreEqual(-50, _ballLogic.Y);
+            Vector2 testPosition = new Vector2(_logicAPI.table.Width, _logicAPI.table.Height);
+            Vector2 testVelocity = new Vector2(1, 2);
+            int radius = 10;
+            Ball ball = new Ball(radius, testPosition, testVelocity);
+            BallLogic ballLogic = new BallLogic(ball);
+            ballLogic.setPosition();
+            Assert.AreNotEqual(_logicAPI.table.Width, ball.Position.X);
+            Assert.AreNotEqual(_logicAPI.table.Height, ball.Position.Y);
+        }
+
+        [Test]
+        public void createDeleteBallsTest()
+        {
+            int amount = 10;
+            int radius = 25;
+            _logicAPI.createBalls(amount, radius);
+            Assert.AreEqual(amount, _logicAPI.balls.Count);
+            _logicAPI.deleteBalls();
+            Assert.AreEqual(0, _logicAPI.balls.Count);
         }
     }
 }
