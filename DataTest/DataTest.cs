@@ -6,29 +6,10 @@ namespace DataTest
     public class DataTests
     {
         [Test]
-        public void ballConstructorTest()
+        public void createAPITest()
         {
-            var radius = 10;
-            var position = new Vector2(5, 5);
-            var velocity = new Vector2(1, 1);
-
-            Ball ball = new Ball(radius, position, velocity);
-
-            Assert.AreEqual(radius, ball.Radius);
-            Assert.AreEqual(position, ball.Position);
-            Assert.AreEqual(velocity, ball.Velocity);
-        }
-
-        [Test]
-        public void tableConstructorTest()
-        {
-            var width = 100;
-            var height = 200;
-
-            Table table = new Table(width, height);
-
-            Assert.AreEqual(width, table.Width);
-            Assert.AreEqual(height, table.Height);
+            DataAPI dataAPI = DataAPI.createDataAPI();
+            Assert.IsNotNull(dataAPI);
         }
 
         [Test]
@@ -43,6 +24,7 @@ namespace DataTest
             Assert.AreEqual(position, ballData.Position);
             Assert.AreEqual(velocity, ballData.Velocity);
             Assert.AreEqual(radius, ballData.Radius);
+            Assert.AreEqual(100, ballData.Speed);
         }
 
         [Test]
