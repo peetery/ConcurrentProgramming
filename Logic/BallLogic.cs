@@ -56,13 +56,31 @@ namespace Logic
 
         public void setPosition()
         {
-            _ball.Position += new Vector2(_ball.Velocity.X * _ball.Speed, _ball.Velocity.Y * _ball.Speed);
-            if (_ball.Position.X < 0 || _ball.Position.X > _table.Width - _ball.Radius)
-                _ball.Velocity *= -Vector2.UnitX;
+            Vector2 newPosition = _ball.Position + new Vector2(_ball.Velocity.X * _ball.Speed, _ball.Velocity.Y * _ball.Speed);
 
-            if (_ball.Position.Y < 0 || _ball.Position.Y > _table.Height - _ball.Radius)
-                _ball.Velocity *= -Vector2.UnitY;
+            if (newPosition.X < 0)
+            {
+                _ball.Velocity = new Vector2(-_ball.Velocity.X, _ball.Velocity.Y);
+                newPosition.X = 0;
+            }
+            else if (newPosition.X > _table.Width - _ball.Radius)
+            {
+                _ball.Velocity = new Vector2(-_ball.Velocity.X, _ball.Velocity.Y);
+                newPosition.X = _table.Width - _ball.Radius;
+            }
+            
+            if (newPosition.Y < 0)
+            {
+                _ball.Velocity = new Vector2(_ball.Velocity.X, -_ball.Velocity.Y);
+                newPosition.Y = 0;
+            }
+            else if (newPosition.Y > _table.Height - _ball.Radius)
+            {
+                _ball.Velocity = new Vector2(_ball.Velocity.X, -_ball.Velocity.Y);
+                newPosition.Y = _table.Height - _ball.Radius;
+            }
 
+            _ball.Position = newPosition;
             RaisePropertyChanged(nameof(X));
             RaisePropertyChanged(nameof(Y));
         }

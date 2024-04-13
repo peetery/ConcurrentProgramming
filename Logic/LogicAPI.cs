@@ -32,7 +32,7 @@ namespace Logic
                 {
                     while (true)
                     {
-                        Thread.Sleep(TimeSpan.FromSeconds(timeTravel));
+                        // Thread.Sleep(TimeSpan.FromSeconds(timeTravel));
                         try
                         {
                             _cancellationToken.ThrowIfCancellationRequested();
