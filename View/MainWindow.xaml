@@ -11,47 +11,46 @@
         <viewmodel:MainWindowViewModel/>
     </Window.DataContext>
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition   Height="*" />
-            <RowDefinition Height="20" />
-        </Grid.RowDefinitions>
-        <Grid Grid.Row="1" Margin="0,0,0,0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Button Grid.Column="1"   Content="Start" Command="{Binding GreenButton}" Background="Green"  />
-            <TextBox Grid.Column="0"    Text="{Binding ballsAmount}" x:Name="inputNumber"  />
-            <Button Grid.Column="2"   Content="Stop" Command="{Binding RedButton}" Background="Red" />
-
+    <Viewbox Stretch="Uniform">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition   Height="*" />
+                <RowDefinition Height="20" />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="1" Margin="0,0,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="1"   Content="Start" Command="{Binding GreenButton}" Background="Green"  />
+                <TextBox Grid.Column="0"    Text="{Binding ballsAmount}" x:Name="inputNumber"  />
+                <Button Grid.Column="2"   Content="Stop" Command="{Binding RedButton}" Background="Red" />
+            </Grid>
+            <Rectangle
+                Grid.Row="0" x:Name="Rectangle"
+                Stroke="Black" 
+                StrokeThickness="4"
+                Height="500"
+                Width="500"/>
+            <ItemsControl Grid.Row="0" ItemsSource="{Binding ballsGroup,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" >
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Canvas/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemContainerStyle>
+                    <Style TargetType="ContentPresenter">
+                        <Setter Property="Canvas.Left" Value="{Binding X}" />
+                        <Setter Property="Canvas.Top" Value="{Binding Y}" />
+                    </Style>
+                </ItemsControl.ItemContainerStyle>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Ellipse Width="25" Height="25" Fill="Red"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
         </Grid>
-        <Rectangle
-            Grid.Row="0" x:Name="Rectangle"
-        Stroke="Black" 
-        StrokeThickness="4"
-            Height="500"
-        Width="500"/>
-        <ItemsControl Grid.Row="0" ItemsSource="{Binding ballsGroup,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" >
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <Canvas/>
-                </ItemsPanelTemplate>
-
-
-            </ItemsControl.ItemsPanel>
-            <ItemsControl.ItemContainerStyle>
-                <Style TargetType="ContentPresenter">
-                    <Setter Property="Canvas.Left" Value="{Binding X}" />
-                    <Setter Property="Canvas.Top" Value="{Binding Y}" />
-                </Style>
-            </ItemsControl.ItemContainerStyle>
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <Ellipse Width="25" Height="25" Fill="Red"/>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
-    </Grid>
+    </Viewbox>
 </Window>

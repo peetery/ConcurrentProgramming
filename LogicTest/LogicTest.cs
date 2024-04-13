@@ -70,6 +70,15 @@ namespace LogicTest
             int radius = 25;
             _logicAPI.createBalls(amount, radius);
             Assert.AreEqual(amount, _logicAPI.balls.Count);
+
+            foreach (BallLogic ball in _logicAPI.balls)
+            {
+                Assert.IsTrue(ball.X > 0);
+                Assert.IsTrue(ball.Y > 0);
+                Assert.IsTrue(ball.X <= _logicAPI.table.Width - ball.Radius);
+                Assert.IsTrue(ball.Y <= _logicAPI.table.Height - ball.Radius);
+            }
+
             _logicAPI.deleteBalls();
             Assert.AreEqual(0, _logicAPI.balls.Count);
         }
