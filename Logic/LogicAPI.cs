@@ -24,6 +24,7 @@ namespace Logic
         public override void RunSimulation()
         {
             _cancellationToken = CancellationToken.None;
+            float timeTravel = 0.01f;
 
             foreach (BallLogic ball in balls)
             {
@@ -31,7 +32,7 @@ namespace Logic
                 {
                     while (true)
                     {
-                        Thread.Sleep(5);
+                        Thread.Sleep(TimeSpan.FromSeconds(timeTravel));
                         try
                         {
                             _cancellationToken.ThrowIfCancellationRequested();
@@ -62,7 +63,7 @@ namespace Logic
         
         public override BallLogic createBall(int radius, Vector2 position)
         {
-            Vector2 basicVelocity = new Vector2((float)0.005, (float)0.005);
+            Vector2 basicVelocity = new Vector2((float)0.01, (float)0.01);
             Ball ball = _dataAPI.getBallData(radius, position, basicVelocity);
             BallLogic ballLogic = new BallLogic(ball);
             return ballLogic;

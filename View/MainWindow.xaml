@@ -22,9 +22,9 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="1"   Content="Start" Command="{Binding ClickButton}" Background="Green"  />
+            <Button Grid.Column="1"   Content="Start" Command="{Binding GreenButton}" Background="Green"  />
             <TextBox Grid.Column="0"    Text="{Binding ballsAmount}" x:Name="inputNumber"  />
-            <Button Grid.Column="2"   Content="Stop" Command="{Binding ExitButton}" Background="Red" />
+            <Button Grid.Column="2"   Content="Stop" Command="{Binding RedButton}" Background="Red" />
 
         </Grid>
         <Rectangle

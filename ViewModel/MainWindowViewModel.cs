@@ -20,13 +20,13 @@ namespace ViewModel
         private int _ballsAmount;
         private ObservableCollection<BallLogic> _balls;
 
-        public ICommand ClickButton { get; set; }
-        public ICommand ExitButton { get; set; }
+        public ICommand GreenButton { get; set; }
+        public ICommand RedButton { get; set; }
 
         public MainWindowViewModel(ModelAbstractAPI modelLayer)
         {
-            ClickButton = new RelayCommand(() => CreateHandler());
-            ExitButton = new RelayCommand(() => ExitHandler());
+            GreenButton = new RelayCommand(() => CreateHandler());
+            RedButton = new RelayCommand(() => StopHandler());
             _modelLayer = modelLayer;
             _width = _modelLayer.Width;
             _height = _modelLayer.Height;
@@ -69,7 +69,7 @@ namespace ViewModel
             _modelLayer.StartSimulation();
         }
 
-        private void ExitHandler()
+        private void StopHandler()
         {
             _modelLayer.StopSimulation();
         }
