@@ -63,13 +63,13 @@ namespace ViewModel
             get { return _width; }
         }
 
-        private async void CreateHandler()
+        public async void CreateHandler()
         {
             ballsGroup = _modelLayer.createBalls(_ballsAmount, 25);
             await Task.Run(() => _modelLayer.StartSimulation());
         }
 
-        private void StopHandler()
+        public void StopHandler()
         {
             _modelLayer.StopSimulation();
         }
