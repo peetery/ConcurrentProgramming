@@ -25,17 +25,35 @@ namespace Logic
         public override void RunSimulation()
         {
             _cancellationTokenSource = new CancellationTokenSource();
+            Barrier barrier = new Barrier(balls.Count);
             float timeTravel = 0.01f;
 
             foreach (BallLogic ball in balls)
             {
                 Task task = Task.Run(async () =>
                 {
+                    barrier.SignalAndWait();
                     while (true)
                     {
                         await Task.Delay(TimeSpan.FromSeconds(timeTravel), _cancellationTokenSource.Token);
                         if (_cancellationTokenSource.Token.IsCancellationRequested)
                             break;
+                        foreach (BallLogic otherBall in balls)
+                        {
+                            lock (balls)
+                            {
+                                if (ball == otherBall)
+                                {
+                                    continue;
+                                }
+                                else if (ball.ballCollision(otherBall))
+                                {
+                                    ball.handleBallColission(otherBall);
+                                }
+
+                            }
+                        }
+
                         ball.setPosition();
                     }
                 }, _cancellationTokenSource.Token);
