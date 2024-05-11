@@ -15,9 +15,9 @@ namespace Data
             return new DataLayer();
         }
 
-        public virtual Ball getBallData(int radius, Vector2 position, Vector2 velocity)
+        public virtual Ball getBallData(int radius, Vector2 position, Vector2 velocity, float mass)
         {
-            return new Ball(radius, position, velocity);
+            return new Ball(radius, position, velocity, mass);
         }
 
         public virtual Table getTableData(int width, int height)

@@ -60,7 +60,7 @@ namespace Logic
         public override BallLogic createBall(int radius, Vector2 position)
         {
             Vector2 basicVelocity = new Vector2((float)0.01, (float)0.01);
-            Ball ball = _dataAPI.getBallData(radius, position, basicVelocity);
+            Ball ball = _dataAPI.getBallData(radius, position, basicVelocity, radius/2);
             BallLogic ballLogic = new BallLogic(ball);
             return ballLogic;
         }

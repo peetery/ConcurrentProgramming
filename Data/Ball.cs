@@ -10,14 +10,14 @@ namespace Data
         public Vector2 Velocity { get; set; }
         public int Speed { get; set; } = 100;
 
-        private bool _isAlive;
+        public float Mass { get; set; }
 
-        public Ball(int radius, Vector2 position, Vector2 velocity)
+        public Ball(int radius, Vector2 position, Vector2 velocity, float mass)
         {
             this.Radius = radius;
             this.Position = position;
             this.Velocity = velocity;
-            this._isAlive = true;
+            this.Mass = mass;
         }
 
         public Vector2 changePosition(Table table)

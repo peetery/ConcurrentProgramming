@@ -16,14 +16,16 @@ namespace DataTest
         public void getBallDataTest()
         {
             DataAPI dataAPI = DataAPI.createDataAPI();
+            var mass = 5f;
             var radius = 10;
             var position = new Vector2(5, 5);
             var velocity = new Vector2(1, 1);
-            var ballData = dataAPI.getBallData(radius, position, velocity);
+            var ballData = dataAPI.getBallData(radius, position, velocity, mass);
 
             Assert.AreEqual(position, ballData.Position);
             Assert.AreEqual(velocity, ballData.Velocity);
             Assert.AreEqual(radius, ballData.Radius);
+            Assert.AreEqual(mass, ballData.Mass);
             Assert.AreEqual(100, ballData.Speed);
         }
 
