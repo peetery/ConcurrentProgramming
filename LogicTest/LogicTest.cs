@@ -32,10 +32,12 @@ namespace LogicTest
             Vector2 testPosition = new Vector2(2, 4);
             Vector2 testVelocity = new Vector2(3, 6);
             int radius = 10;
-            Ball ball = new Ball(radius, testPosition, testVelocity);
+            float mass = 5f;
+            Ball ball = new Ball(radius, testPosition, testVelocity, mass);
             Assert.AreEqual(radius, ball.Radius);
             Assert.AreEqual(testPosition, ball.Position);
             Assert.AreEqual(testVelocity, ball.Velocity);
+            Assert.AreEqual(mass, ball.Mass);
         }
 
         [Test]
@@ -44,7 +46,8 @@ namespace LogicTest
             Vector2 testPosition = new Vector2(2, 4);
             Vector2 testVelocity = new Vector2(3, 6);
             int radius = 10;
-            Ball ball = new Ball(radius, testPosition, testVelocity);
+            float mass = 5f;
+            Ball ball = new Ball(radius, testPosition, testVelocity, mass);
             ball.Velocity = new Vector2(6, 12);
             Assert.AreEqual(6, ball.Velocity.X);
             Assert.AreEqual(12, ball.Velocity.Y);
@@ -56,7 +59,8 @@ namespace LogicTest
             Vector2 testPosition = new Vector2(_logicAPI.table.Width, _logicAPI.table.Height);
             Vector2 testVelocity = new Vector2(1, 2);
             int radius = 10;
-            Ball ball = new Ball(radius, testPosition, testVelocity);
+            float mass = 5f;
+            Ball ball = new Ball(radius, testPosition, testVelocity, mass);
             BallLogic ballLogic = new BallLogic(ball);
             ballLogic.setPosition();
             Assert.AreNotEqual(_logicAPI.table.Width, ball.Position.X);

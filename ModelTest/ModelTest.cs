@@ -20,9 +20,10 @@ namespace ModelTest
             }
             public override void createBalls(int amount, int radius)
             {
+                float mass = 5f;
                 for (int i = 0; i < amount; i++)
                 {
-                    balls.Add(new BallLogic(new Ball(radius, Vector2.Zero, Vector2.Zero)));
+                    balls.Add(new BallLogic(new Ball(radius, Vector2.Zero, Vector2.Zero, mass)));
                 }
             }
 
