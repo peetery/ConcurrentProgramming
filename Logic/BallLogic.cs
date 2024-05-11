@@ -25,6 +25,11 @@ namespace Logic
             get { return _ball.Radius; }
         }
 
+        public float Mass
+        {
+            get { return _ball.Mass; }
+        }
+
         public BallLogic(Ball ball)
         {
             _ball = ball;
@@ -68,6 +73,23 @@ namespace Logic
             {
                 PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propertyName));
             }
+        }
+        
+        public bool ballCollision(BallLogic other)
+        {
+            Vector2 distance = new Vector2(other.X, other.Y) - new Vector2(this.X, this.Y);
+            float seperationDistance = 1;
+            float radiusSum = (other.Radius / 2) + (this.Radius / 2) + seperationDistance;
+            return distance.LengthSquared() <= radiusSum * radiusSum;
+        }
+
+        public void handleBallColission(BallLogic other)
+        {
+            Vector2 collisionNormal = Vector2.Normalize(new Vector2(other.X, other.Y) - new Vector2(this.X, this.Y));
+            Vector2 relativeVelocity = other.Velocity - this.Velocity;
+            float collisionPulse = 2 * this.Mass * other.Mass * Vector2.Dot(relativeVelocity, collisionNormal) / (this.Mass + other.Mass);
+            this.Velocity += collisionPulse / this.Mass * collisionNormal;
+            other.Velocity -= collisionPulse / other.Mass * collisionNormal;
         }
     }
 }
