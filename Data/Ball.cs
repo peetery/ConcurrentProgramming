@@ -19,5 +19,34 @@ namespace Data
             this.Velocity = velocity;
             this._isAlive = true;
         }
+
+        public Vector2 changePosition(Table table)
+        {
+            Vector2 newPosition = this.Position + new Vector2(this.Velocity.X * this.Speed, this.Velocity.Y * this.Speed);
+
+            if (newPosition.X < 0)
+            {
+                this.Velocity = new Vector2(-this.Velocity.X, this.Velocity.Y);
+                newPosition.X = 0;
+            }
+            else if (newPosition.X > table.Width - this.Radius)
+            {
+                this.Velocity = new Vector2(-this.Velocity.X, this.Velocity.Y);
+                newPosition.X = table.Width - this.Radius;
+            }
+
+            if (newPosition.Y < 0)
+            {
+                this.Velocity = new Vector2(this.Velocity.X, -this.Velocity.Y);
+                newPosition.Y = 0;
+            }
+            else if (newPosition.Y > table.Height - this.Radius)
+            {
+                this.Velocity = new Vector2(this.Velocity.X, -this.Velocity.Y);
+                newPosition.Y = table.Height - this.Radius;
+            }
+
+            return newPosition;
+        }
     }
 }
