@@ -95,6 +95,13 @@ namespace Logic
             float collisionPulse = 2 * this.Mass * other.Mass * Vector2.Dot(relativeVelocity, collisionNormal) / (this.Mass + other.Mass);
             this.Velocity += collisionPulse / this.Mass * collisionNormal;
             other.Velocity -= collisionPulse / other.Mass * collisionNormal;
+
+            float overlapDistance = (this.Radius / 2 + other.Radius / 2) - Vector2.Distance(this._ball.Position, other._ball.Position);
+            if (overlapDistance > 0)
+            {
+                this._ball.Position -= collisionNormal * overlapDistance / 2;
+                other._ball.Position += collisionNormal * overlapDistance / 2;
+            }
         }
     }
 }
