@@ -20,6 +20,11 @@ namespace Logic
             get { return _ball.Position.Y; }
         }
 
+        public Vector2 Position
+        {
+            get { return _ball.Position; }
+        }
+
         public int Radius
         {
             get { return _ball.Radius; }

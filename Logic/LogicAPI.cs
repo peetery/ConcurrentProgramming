@@ -88,7 +88,23 @@ namespace Logic
             Random random = new Random();
             for (int i = 0; i < amount; i++)
             {
-                Vector2 position = new Vector2((float)random.Next(0, table.Width - radius), (float)random.Next(0, table.Height - radius));
+                Vector2 position;
+                bool collides;
+                do
+                {
+                    position = new Vector2((float)random.Next(0, table.Width - radius), (float)random.Next(0, table.Height - radius));
+                    collides = false;
+                    foreach (var existingBall in balls)
+                    {
+                        float distance = Vector2.Distance(position, existingBall.Position);
+                        if (distance < radius + existingBall.Radius)
+                        {
+                            collides = true;
+                            break;
+                        }
+                    }
+
+                } while (collides);
                 BallLogic newBall = createBall(radius, position);
                 balls.Add(newBall);
             }
