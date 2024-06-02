@@ -25,22 +25,28 @@ namespace Logic
         public override void RunSimulation()
         {
             _cancellationTokenSource = new CancellationTokenSource();
+            CancellationToken token = _cancellationTokenSource.Token;
             Barrier barrier = new Barrier(balls.Count);
-            float timeTravel = 0.01f;
 
             foreach (BallLogic ball in balls)
             {
-                Task task = Task.Run(async () =>
+                Task task = Task.Run(() =>
                 {
                     barrier.SignalAndWait();
-                    while (true)
+                    var timer = new System.Timers.Timer();
+                    timer.Elapsed += (_, elapsedArgs) =>
                     {
-                        await Task.Delay(TimeSpan.FromSeconds(timeTravel), _cancellationTokenSource.Token);
-                        if (_cancellationTokenSource.Token.IsCancellationRequested)
-                            break;
-                        foreach (BallLogic otherBall in balls)
+                        if (token.IsCancellationRequested)
                         {
-                            lock (balls)
+                            timer.Stop();
+                            timer.Dispose();
+                            return;
+                        }
+
+                        lock (balls)
+                        {
+                            ball.setPosition();
+                            foreach (BallLogic otherBall in balls)
                             {
                                 if (ball == otherBall)
                                 {
@@ -50,20 +56,22 @@ namespace Logic
                                 {
                                     ball.handleBallColission(otherBall);
                                 }
-
                             }
                         }
+                    };
+                    timer.Interval = 8.8888; // 1/113Hz
+                    timer.Enabled = true;
 
-                        ball.setPosition();
-                    }
-                }, _cancellationTokenSource.Token);
+                    WaitHandle.WaitAny(new[] { token.WaitHandle });
+                });
+
                 _tasks.Add(task);
             }
         }
 
         public override void StopSimulation()
         {
-            _cancellationTokenSource?.Cancel();
+            _cancellationTokenSource.Cancel();
 
             try
             {
