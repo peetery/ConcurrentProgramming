@@ -2,6 +2,7 @@ using Logic;
 using Data;
 using System.Collections.ObjectModel;
 using System.Numerics;
+using DataTest;
 
 namespace LogicTest
 {
@@ -85,6 +86,22 @@ namespace LogicTest
 
             _logicAPI.deleteBalls();
             Assert.AreEqual(0, _logicAPI.balls.Count);
+        }
+
+        [Test]
+        public async Task RunSimulation_LogDataTest()
+        {
+            var mockDataAPI = new MockDataAPI();
+            var logicAPI = new LogicAPI(mockDataAPI);
+            logicAPI.createBalls(2, 10);
+
+            logicAPI.RunSimulation();
+            await Task.Delay(100);
+            logicAPI.StopSimulation();
+
+            List<string> loggedData = mockDataAPI.GetLoggedData();
+
+            Assert.IsNotNull(loggedData);
         }
     }
 }

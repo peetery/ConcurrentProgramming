@@ -16,11 +16,13 @@ namespace Logic
         public override Table table { get; }
         public override ObservableCollection<BallLogic> balls { get; } = new ObservableCollection<BallLogic>();
 
-        public LogicAPI()
+        public LogicAPI() : this(DataAPI.createDataAPI()) { }
+
+        public LogicAPI(DataAPI dataAPI)
         {
-           _dataAPI = DataAPI.createDataAPI();
+            _dataAPI = dataAPI;
             table = _dataAPI.getTableData(500, 500);
-           BallLogic.SetTable(table);
+            BallLogic.SetTable(table);
         }
 
         public override void RunSimulation()

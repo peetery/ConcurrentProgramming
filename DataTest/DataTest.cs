@@ -40,5 +40,20 @@ namespace DataTest
             Assert.AreEqual (width, tableData.Width);
             Assert.AreEqual(height , tableData.Height);
         }
+
+        [Test]
+        public async Task LogDiagnosticDataAsyncTest()
+        {
+            var mockDataAPI = new MockDataAPI();
+            string testData = "{\"Event\":\"Test\"}";
+
+            await mockDataAPI.LogDiagnosticDataAsync(testData);
+
+            List<string> loggedData = mockDataAPI.GetLoggedData();
+
+            Assert.IsNotNull(loggedData);
+            Assert.AreEqual(1, loggedData.Count);
+            Assert.AreEqual(testData, loggedData.First());
+        }
     }
 }
