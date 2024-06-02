@@ -2,6 +2,7 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Numerics;
+using System.Text.Json;
 using System.Threading;
 
 namespace Logic
@@ -30,11 +31,11 @@ namespace Logic
 
             foreach (BallLogic ball in balls)
             {
-                Task task = Task.Run(() =>
+                Task task = Task.Run(async () =>
                 {
                     barrier.SignalAndWait();
                     var timer = new System.Timers.Timer();
-                    timer.Elapsed += (_, elapsedArgs) =>
+                    timer.Elapsed += async (_, elapsedArgs) =>
                     {
                         if (token.IsCancellationRequested)
                         {
@@ -42,6 +43,8 @@ namespace Logic
                             timer.Dispose();
                             return;
                         }
+
+                        List<string> logsToSave = new List<string>();
 
                         lock (balls)
                         {
@@ -55,8 +58,23 @@ namespace Logic
                                 else if (ball.ballCollision(otherBall))
                                 {
                                     ball.handleBallColission(otherBall);
+                                    // Logowanie kolizji
+                                    var logData = new
+                                    {
+                                        Event = "Collision",
+                                        Ball1 = ball,
+                                        Ball2 = otherBall,
+                                        Timestamp = DateTime.UtcNow
+                                    };
+                                    string jsonData = JsonSerializer.Serialize(logData);
+                                    logsToSave.Add(jsonData);
                                 }
                             }
+                        }
+
+                        foreach (var log in logsToSave)
+                        {
+                            await _dataAPI.LogDiagnosticDataAsync(log);
                         }
                     };
                     timer.Interval = 8.8888; // 1/113Hz
